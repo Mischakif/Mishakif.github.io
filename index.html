@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>משחקיף - עולם המשחקים המושלם</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>משחקיף - אתר המשחקים המוביל בישראל</title>
+    <meta name="description" content="משחקיף מציע מגוון רחב של משחקים מקוונים חינמיים. מצאו את המשחקים האהובים עליכם ושחקו עכשיו!">
+    <meta name="keywords" content="משחקים, משחקים מקוונים, משחקי רשת, משחקים חינמיים, משחקיף">
+    <meta name="author" content="משחקיף">
+    <link rel="canonical" href="mishakif.github.io">
+
+    <script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "WebSite",
+  "name": "משחקיף",
+  "url": "https://mishakif.github.io",
+  "description": "אתר המשחקים המוביל בישראל עם מגוון רחב של משחקים מקוונים חינמיים",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://mishakif.github.io/search?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html" class="logo">
+            <span class="logo-text">משחקיף</span>
+        </a>
+            <div class="search-bar">
+                <input type="text" placeholder="חפש משחקים...">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+            <div class="nav-buttons">
+                <button id="favorites-btn"><i class="fas fa-star"></i> מועדפים</button>
+                <button id="night-mode-btn"><i class="fas fa-moon"></i></button>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="featured">
+            <h2>משחקים מובילים</h2>
+            <div id="featured-games" class="game-grid"></div>
+        </section>
+
+        <section id="all-games">
+            <h2>כל המשחקים</h2>
+            <div class="category-filter"></div>
+            <div id="all-games-grid" class="game-grid"></div>
+        </section>
+    </main>
+
+    <div id="game-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="game-frame"></div>
+            <div class="game-info">
+                <h2 id="game-title"></h2>
+                <div class="game-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <button id="add-favorite"><i class="fas fa-heart"></i> הוסף למועדפים</button>
+                <button id="share-game"><i class="fas fa-share"></i> שתף</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="loading-indicator" class="loading">
+        <div class="spinner"></div>
+        <p>טוען משחקים...</p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
