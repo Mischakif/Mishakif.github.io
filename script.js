@@ -55,7 +55,6 @@ const categoryTranslations = {
     'Pac Maze': 'מבוך פאק-מן'
 };
 
-
 const translationDictionary = {
     'מהג׳ונג': 'mahjong',
     'פאזל': 'puzzle',
@@ -72,23 +71,6 @@ const translationDictionary = {
     // הוסף עוד תרגומים לפי הצורך
 };
 
-function googleTranslateElementInit() {
-    new google.translate.TranslateElement({pageLanguage: 'iw', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
-}
-
-function translateToEnglish(text) {
-    return new Promise((resolve, reject) => {
-        const translateApi = google.translate.TranslateElement();
-        translateApi.translateText(text, 'iw', 'en', (result) => {
-            if (result.translation) {
-                resolve(result.translation);
-            } else {
-                reject('Translation failed');
-            }
-        });
-    });
-}
-
 document.addEventListener('DOMContentLoaded', function() {
     const featuredGamesContainer = document.getElementById('featured-games');
     const allGamesContainer = document.getElementById('all-games-grid');
@@ -99,21 +81,21 @@ document.addEventListener('DOMContentLoaded', function() {
     const loadingIndicator = document.getElementById('loading-indicator');
     const nightModeBtn = document.getElementById('night-mode-btn');
     const gameTitle = document.getElementById('game-title');
-    const sectionTitle = document.querySelector('.section-title');
     const searchInput = document.querySelector('.search-bar input');
     const searchButton = document.querySelector('.search-bar button');
+
+    // Add this line to define sectionTitle
+    const sectionTitle = document.querySelector('#all-games h2');
 
     let games = [];
     let categories = ['הכל'];
     let currentPage = 1;
     const gamesPerPage = 20;
 
-    const CORS_PROXY = 'https://cors-anywhere.herokuapp.com/';
-    const GAMES_API = 'https://www.htmlgames.com/rss/games.php?json';
-
     loadingIndicator.style.display = 'flex';
 
-    fetch(CORS_PROXY + GAMES_API)
+    // Load games from local JSON file
+    fetch('games.json')
         .then(response => {
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
@@ -249,44 +231,43 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-  function searchGames() {
-    let searchTerm = searchInput.value.trim().toLowerCase();
-    let searchTerms = [searchTerm];
+    function searchGames() {
+        let searchTerm = searchInput.value.trim().toLowerCase();
+        let searchTerms = [searchTerm];
 
-    // בדוק אם המילה קיימת במילון התרגומים
-    if (translationDictionary[searchTerm]) {
-        searchTerms.push(translationDictionary[searchTerm]);
-    } else {
-        // אם לא מצאנו תרגום מדויק, נחפש תרגומים חלקיים
-        for (let [hebrewWord, englishWord] of Object.entries(translationDictionary)) {
-            if (searchTerm.includes(hebrewWord)) {
-                searchTerms.push(englishWord);
+        // בדוק אם המילה קיימת במילון התרגומים
+        if (translationDictionary[searchTerm]) {
+            searchTerms.push(translationDictionary[searchTerm]);
+        } else {
+            // אם לא מצאנו תרגום מדויק, נחפש תרגומים חלקיים
+            for (let [hebrewWord, englishWord] of Object.entries(translationDictionary)) {
+                if (searchTerm.includes(hebrewWord)) {
+                    searchTerms.push(englishWord);
+                }
             }
         }
+
+        allGamesContainer.innerHTML = ''; // נקה את המיכל
+        currentPage = 1; // אפס את מספר העמוד
+
+        const filteredGames = games.filter(game =>
+            searchTerms.some(term =>
+                game.name.toLowerCase().includes(term) ||
+                game.category.toLowerCase().includes(term)
+            )
+        );
+        const initialGames = filteredGames.slice(0, gamesPerPage);
+
+        initialGames.forEach(game => {
+            allGamesContainer.appendChild(createGameCard(game));
+        });
+
+        if (sectionTitle) {
+            sectionTitle.textContent = `תוצאות חיפוש: "${searchInput.value}"`;
+        }
+
+        console.log(`Searching for terms: ${searchTerms.join(', ')}`);
     }
-
-    allGamesContainer.innerHTML = ''; // נקה את המיכל
-    currentPage = 1; // אפס את מספר העמוד
-
-    const filteredGames = games.filter(game =>
-        searchTerms.some(term =>
-            game.name.toLowerCase().includes(term) ||
-            game.category.toLowerCase().includes(term)
-        )
-    );
-    const initialGames = filteredGames.slice(0, gamesPerPage);
-
-    initialGames.forEach(game => {
-        allGamesContainer.appendChild(createGameCard(game));
-    });
-
-    if (sectionTitle) {
-        sectionTitle.textContent = `תוצאות חיפוש: "${searchInput.value}"`;
-    }
-
-    console.log(`Searching for terms: ${searchTerms.join(', ')}`);
-}
-
 
     if (searchButton) {
         searchButton.addEventListener('click', searchGames);
