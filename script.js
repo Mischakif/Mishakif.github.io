@@ -84,7 +84,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const searchInput = document.querySelector('.search-bar input');
     const searchButton = document.querySelector('.search-bar button');
 
-    // Add this line to define sectionTitle
     const sectionTitle = document.querySelector('#all-games h2');
 
     let games = [];
@@ -191,21 +190,54 @@ document.addEventListener('DOMContentLoaded', function() {
             gameFrame.innerHTML = `<iframe src="${game.url}" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>`;
             gameTitle.textContent = game.name;
             modal.style.display = 'block';
+            
+            // Load AdSense ad
+            loadAdSense();
         } else {
             console.error('Game URL is missing');
             alert('Sorry, unable to load the game.');
         }
     }
 
+    function loadAdSense() {
+        const adContainer = document.getElementById('ad-container');
+        adContainer.innerHTML = ''; // Clear previous ad content
+        
+        // Create AdSense ad
+        const adScript = document.createElement('script');
+        adScript.async = true;
+        adScript.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3031120931689931';
+        adScript.crossOrigin = 'anonymous';
+        
+        const inlineScript = document.createElement('script');
+        inlineScript.innerHTML = `
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        `;
+        
+        const adElement = document.createElement('ins');
+        adElement.className = 'adsbygoogle';
+        adElement.style.display = 'block';
+        adElement.setAttribute('data-ad-client', 'ca-pub-3031120931689931');
+        adElement.setAttribute('data-ad-slot', '1719588074'); // Updated with the correct ad slot ID
+        adElement.setAttribute('data-ad-format', 'auto');
+        adElement.setAttribute('data-full-width-responsive', 'true');
+        
+        adContainer.appendChild(adScript);
+        adContainer.appendChild(adElement);
+        adContainer.appendChild(inlineScript);
+    }
+
     closeBtn.onclick = function() {
         modal.style.display = 'none';
         gameFrame.innerHTML = '';
+        document.getElementById('ad-container').innerHTML = ''; // Clear ad when closing modal
     }
 
     window.onclick = function(event) {
         if (event.target == modal) {
             modal.style.display = 'none';
             gameFrame.innerHTML = '';
+            document.getElementById('ad-container').innerHTML = ''; // Clear ad when closing modal
         }
     }
 
@@ -235,11 +267,9 @@ document.addEventListener('DOMContentLoaded', function() {
         let searchTerm = searchInput.value.trim().toLowerCase();
         let searchTerms = [searchTerm];
 
-        // בדוק אם המילה קיימת במילון התרגומים
         if (translationDictionary[searchTerm]) {
             searchTerms.push(translationDictionary[searchTerm]);
         } else {
-            // אם לא מצאנו תרגום מדויק, נחפש תרגומים חלקיים
             for (let [hebrewWord, englishWord] of Object.entries(translationDictionary)) {
                 if (searchTerm.includes(hebrewWord)) {
                     searchTerms.push(englishWord);
@@ -247,8 +277,8 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
 
-        allGamesContainer.innerHTML = ''; // נקה את המיכל
-        currentPage = 1; // אפס את מספר העמוד
+        allGamesContainer.innerHTML = '';
+        currentPage = 1;
 
         const filteredGames = games.filter(game =>
             searchTerms.some(term =>
