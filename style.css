@@ -693,6 +693,7 @@ h1 {
 
 
 /* עיצוב למודל המשחק */
+/* עיצוב למודל המשחק */
 .modal-content {
     background: linear-gradient(135deg, var(--card-background) 0%, var(--background-color) 100%);
     border-radius: 20px;
@@ -707,7 +708,7 @@ h1 {
 #game-frame {
     flex-grow: 1;
     width: 100%;
-    height: calc(100% - 150px); /* הגובה של המודאל פחות גובה המידע והפרסומת */
+    height: calc(100% - 180px); /* Adjusted to accommodate ad and game info */
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 5px 15px rgba(0,0,0,0.2);
@@ -721,11 +722,10 @@ h1 {
 }
 
 #ad-container {
-    height: 330px;
-    width: 330%;
+    height: 100px;
+    width: 100%;
     overflow: hidden;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin: 10px 0;
     background-color: #f0f0f0;
     display: flex;
     align-items: center;
@@ -746,10 +746,24 @@ h1 {
         width: 100%;
         height: 100vh;
         border-radius: 0;
+        padding: 10px;
     }
 
     #game-frame {
-        height: calc(100% - 180px);
+        height: calc(100% - 200px); /* Adjusted for mobile */
+    }
+
+    #ad-container {
+        height: 80px; /* Smaller ad container for mobile */
+    }
+
+    .game-info {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .game-info button {
+        margin-top: 10px;
     }
 }
 
