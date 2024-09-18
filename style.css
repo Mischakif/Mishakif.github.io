@@ -673,21 +673,4 @@ h1 {
     left: 100%;
 }
 
-#ad-container {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    text-align: center;
-}
 
-.modal-content {
-    /* ... (existing styles) ... */
-    display: flex;
-    flex-direction: column;
-}
-
-#game-frame {
-    flex-grow: 1;
-    width: 100%;
-    min-height: 60%;
-    margin-bottom: 1rem;
-}
