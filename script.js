@@ -67,7 +67,8 @@ const translationDictionary = {
     'הרפתקאות': 'adventure',
     'ספורט': 'sports',
     'מרוצים': 'racing',
-    'יריות': 'shooting'
+    'יריות': 'shooting',
+    // הוסף עוד תרגומים לפי הצורך
 };
 
 document.addEventListener('DOMContentLoaded', function() {
