@@ -675,7 +675,7 @@ h1 {
 }
 
 #ad-container {
-    height: 90px; /* Reduced from 100px */
+    height: 100px; 
     overflow: hidden;
     margin-top: 10px; /* Add some space between the game and the ad */
     background-color: #f0f0f0; /* Light grey background to distinguish the ad area */
