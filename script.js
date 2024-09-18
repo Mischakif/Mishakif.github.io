@@ -67,8 +67,7 @@ const translationDictionary = {
     'הרפתקאות': 'adventure',
     'ספורט': 'sports',
     'מרוצים': 'racing',
-    'יריות': 'shooting',
-    // הוסף עוד תרגומים לפי הצורך
+    'יריות': 'shooting'
 };
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -218,7 +217,7 @@ document.addEventListener('DOMContentLoaded', function() {
         adElement.className = 'adsbygoogle';
         adElement.style.display = 'block';
         adElement.setAttribute('data-ad-client', 'ca-pub-3031120931689931');
-        adElement.setAttribute('data-ad-slot', '1719588074'); // Updated with the correct ad slot ID
+        adElement.setAttribute('data-ad-slot', '1719588074');
         adElement.setAttribute('data-ad-format', 'auto');
         adElement.setAttribute('data-full-width-responsive', 'true');
         
