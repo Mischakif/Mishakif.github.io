@@ -673,4 +673,8 @@ h1 {
     left: 100%;
 }
 
+#ad-container {
+    height: 100px; 
+    overflow: hidden; 
+}
 
