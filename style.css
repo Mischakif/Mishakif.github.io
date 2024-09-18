@@ -230,6 +230,7 @@ h2 {
     justify-content: space-between;
     align-items: center;
     padding-top: 1rem;
+    margin-top: 10px; 
 }
 
 .game-rating {
@@ -674,7 +675,12 @@ h1 {
 }
 
 #ad-container {
-    height: 100px; 
-    overflow: hidden; 
+    height: 90px; /* Reduced from 100px */
+    overflow: hidden;
+    margin-top: 10px; /* Add some space between the game and the ad */
+    background-color: #f0f0f0; /* Light grey background to distinguish the ad area */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px; /* Optional: adds rounded corners */
 }
-
